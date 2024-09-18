@@ -1,0 +1,50 @@
+class TreeNode:
+  def __init__(self, key):
+      self.key = key
+      self.left = None
+      self.right = None
+
+class BinarySearchTree:
+  def __init__(self):
+      self.root = None
+
+  def insert(self, key):
+      if self.root is None:
+          self.root = TreeNode(key)
+      else:
+          self._insert(self.root, key)
+
+  def _insert(self, node, key):
+      if key < node.key:
+          if node.left is None:
+              node.left = TreeNode(key)
+          else:
+              self._insert(node.left, key)
+      else:
+          if node.right is None:
+              node.right = TreeNode(key)
+          else:
+              self._insert(node.right, key)
+
+  def find_min(self):
+      if self.root is None:
+          return None
+      return self._find_min(self.root)
+
+  def _find_min(self, node):
+      current = node
+      while current.left is not None:
+          current = current.left
+      return current.key
+
+# Create a binary search tree
+bst = BinarySearchTree()
+
+# Insert some values
+values = [20, 10, 30, 5, 15, 25, 35]
+for value in values:
+    bst.insert(value)
+
+# Find the smallest value
+min_value = bst.find_min()
+print(f"The smallest value in the tree is: {min_value}")

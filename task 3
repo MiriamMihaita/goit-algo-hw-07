@@ -1,0 +1,47 @@
+class TreeNode:
+  def __init__(self, key):
+      self.key = key
+      self.left = None
+      self.right = None
+
+class BinarySearchTree:
+  def __init__(self):
+      self.root = None
+
+  def insert(self, key):
+      if self.root is None:
+          self.root = TreeNode(key)
+      else:
+          self._insert(self.root, key)
+
+  def _insert(self, node, key):
+      if key < node.key:
+          if node.left is None:
+              node.left = TreeNode(key)
+          else:
+              self._insert(node.left, key)
+      else:
+          if node.right is None:
+              node.right = TreeNode(key)
+          else:
+              self._insert(node.right, key)
+
+  def find_sum(self):
+      return self._find_sum(self.root)
+
+  def _find_sum(self, node):
+      if node is None:
+          return 0
+      return node.key + self._find_sum(node.left) + self._find_sum(node.right)
+
+# Example usage
+bst = BinarySearchTree()
+
+# Insert some values
+values = [20, 10, 30, 5, 15, 25, 35]
+for value in values:
+  bst.insert(value)
+
+# Find the sum of all values
+total_sum = bst.find_sum()
+print(f"The sum of all values in the tree is: {total_sum}")
